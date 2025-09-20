@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Amway 4 Basics - Professional business management app for Amway distributors">
+    <meta name="theme-color" content="#0066CC">
+    <title>Amway 4 Basics - Business Management</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-spinner"></div>
+        <h2>Amway 4 Basics</h2>
+        <p>Loading your business dashboard...</p>
+    </div>
+
+    <!-- Main App Container -->
+    <div id="app" class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <h1 class="app-title">Amway 4 Basics</h1>
+                <div class="header-actions">
+                    <button class="btn-icon" id="notifications-btn">
+                        <span class="icon">🔔</span>
+                        <span class="badge" id="notification-count">3</span>
+                    </button>
+                    <button class="btn-icon" id="profile-btn">
+                        <span class="icon">👤</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="section active">
+                <div class="dashboard-header">
+                    <h2>Welcome Back, Diamond!</h2>
+                    <p class="date-display" id="current-date"></p>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">📋</div>
+                        <div class="stat-info">
+                            <span class="stat-number" id="total-contacts">247</span>
+                            <span class="stat-label">Total Contacts</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📞</div>
+                        <div class="stat-info">
+                            <span class="stat-number" id="calls-today">12</span>
+                            <span class="stat-label">Calls Today</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📊</div>
+                        <div class="stat-info">
+                            <span class="stat-number" id="presentations-week">5</span>
+                            <span class="stat-label">Presentations This Week</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">✅</div>
+                        <div class="stat-info">
+                            <span class="stat-number" id="follow-ups-pending">18</span>
+                            <span class="stat-label">Follow-ups Pending</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Today's Activities -->
+                <div class="activity-section">
+                    <h3>Today's Activities</h3>
+                    <div class="activity-list" id="today-activities">
+                        <div class="activity-item">
+                            <div class="activity-time">10:00 AM</div>
+                            <div class="activity-content">
+                                <h4>Business Presentation</h4>
+                                <p>John Smith - Coffee meeting</p>
+                            </div>
+                            <div class="activity-status pending">Pending</div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-time">2:00 PM</div>
+                            <div class="activity-content">
+                                <h4>Follow-up Call</h4>
+                                <p>Sarah Johnson - Product interest</p>
+                            </div>
+                            <div class="activity-status scheduled">Scheduled</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Name List Section -->
+            <section id="namelist" class="section">
+                <div class="section-header">
+                    <h2>Name List</h2>
+                    <button class="btn-primary" id="add-contact-btn">+ Add Contact</button>
+                </div>
+
+                <!-- Search and Filter -->
+                <div class="search-filter-bar">
+                    <div class="search-box">
+                        <input type="text" id="contact-search" placeholder="Search contacts...">
+                        <span class="search-icon">🔍</span>
+                    </div>
+                    <select id="contact-filter" class="filter-select">
+                        <option value="all">All Contacts</option>
+                        <option value="prospects">Prospects</option>
+                        <option value="customers">Customers</option>
+                        <option value="distributors">Distributors</option>
+                    </select>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="progress-section">
+                    <div class="progress-info">
+                        <span>Progress to 300 contacts</span>
+                        <span id="contact-progress">247/300</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 82%"></div>
+                    </div>
+                </div>
+
+                <!-- Contact List -->
+                <div class="contact-list" id="contact-list">
+                    <!-- Contacts will be dynamically loaded here -->
+                </div>
+            </section>
+
+            <!-- Activities Section -->
+            <section id="activities" class="section">
+                <div class="section-header">
+                    <h2>Activities</h2>
+                    <div class="activity-tabs">
+                        <button class="tab-btn active" data-tab="contact-invite">Contact & Invite</button>
+                        <button class="tab-btn" data-tab="show-plan">Show Plan</button>
+                    </div>
+                </div>
+
+                <!-- Contact & Invite Tab -->
+                <div id="contact-invite" class="tab-content active">
+                    <div class="action-buttons">
+                        <button class="btn-secondary" id="quick-call-btn">📞 Quick Call</button>
+                        <button class="btn-secondary" id="send-message-btn">💬 Send Message</button>
+                        <button class="btn-secondary" id="schedule-meeting-btn">📅 Schedule Meeting</button>
+                    </div>
+
+                    <div class="activity-log">
+                        <h3>Recent Activities</h3>
+                        <div class="log-list" id="contact-log">
+                            <!-- Activity log items will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Show Plan Tab -->
+                <div id="show-plan" class="tab-content">
+                    <div class="presentation-tools">
+                        <button class="btn-primary" id="new-presentation-btn">📊 New Presentation</button>
+                        <button class="btn-secondary" id="presentation-materials-btn">📁 Materials</button>
+                    </div>
+
+                    <div class="presentation-history">
+                        <h3>Presentation History</h3>
+                        <div class="presentation-list" id="presentation-list">
+                            <!-- Presentation history will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Follow Up Section -->
+            <section id="followup" class="section">
+                <div class="section-header">
+                    <h2>Follow Up & Follow Through</h2>
+                    <button class="btn-primary" id="add-followup-btn">+ Add Follow-up</button>
+                </div>
+
+                <!-- Follow-up Categories -->
+                <div class="followup-categories">
+                    <div class="category-card urgent">
+                        <h3>Urgent</h3>
+                        <span class="count" id="urgent-count">5</span>
+                    </div>
+                    <div class="category-card today">
+                        <h3>Today</h3>
+                        <span class="count" id="today-count">8</span>
+                    </div>
+                    <div class="category-card week">
+                        <h3>This Week</h3>
+                        <span class="count" id="week-count">15</span>
+                    </div>
+                </div>
+
+                <!-- Follow-up List -->
+                <div class="followup-list" id="followup-list">
+                    <!-- Follow-up items will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Calendar Section -->
+            <section id="calendar" class="section">
+                <div class="section-header">
+                    <h2>Smart Calendar</h2>
+                    <div class="calendar-controls">
+                        <button class="btn-icon" id="prev-month">‹</button>
+                        <span class="current-month" id="current-month">December 2024</span>
+                        <button class="btn-icon" id="next-month">›</button>
+                    </div>
+                </div>
+
+                <!-- Calendar View Toggle -->
+                <div class="view-toggle">
+                    <button class="toggle-btn active" data-view="month">Month</button>
+                    <button class="toggle-btn" data-view="week">Week</button>
+                    <button class="toggle-btn" data-view="day">Day</button>
+                </div>
+
+                <!-- Calendar Grid -->
+                <div class="calendar-container">
+                    <div class="calendar-grid" id="calendar-grid">
+                        <!-- Calendar will be dynamically generated -->
+                    </div>
+                </div>
+
+                <!-- Event Details Panel -->
+                <div class="event-panel" id="event-panel">
+                    <div class="event-details">
+                        <h3 id="event-title">Event Details</h3>
+                        <p id="event-description">Select an event to view details</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <button class="nav-item active" data-section="dashboard">
+                <span class="nav-icon">🏠</span>
+                <span class="nav-label">Dashboard</span>
+            </button>
+            <button class="nav-item" data-section="namelist">
+                <span class="nav-icon">📋</span>
+                <span class="nav-label">Name List</span>
+            </button>
+            <button class="nav-item" data-section="activities">
+                <span class="nav-icon">⚡</span>
+                <span class="nav-label">Activities</span>
+            </button>
+            <button class="nav-item" data-section="followup">
+                <span class="nav-icon">✅</span>
+                <span class="nav-label">Follow Up</span>
+            </button>
+            <button class="nav-item" data-section="calendar">
+                <span class="nav-icon">📅</span>
+                <span class="nav-label">Calendar</span>
+            </button>
+        </nav>
+    </div>
+
+    <!-- Modal Overlays -->
+    <!-- Add Contact Modal -->
+    <div id="add-contact-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Contact</h3>
+                <button class="close-btn" data-modal="add-contact-modal">×</button>
+            </div>
+            <form id="add-contact-form" class="modal-form">
+                <div class="form-group">
+                    <label for="contact-name">Full Name *</label>
+                    <input type="text" id="contact-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="contact-phone">Phone Number</label>
+                    <input type="tel" id="contact-phone">
+                </div>
+                <div class="form-group">
+                    <label for="contact-email">Email Address</label>
+                    <input type="email" id="contact-email">
+                </div>
+                <div class="form-group">
+                    <label for="contact-category">Category</label>
+                    <select id="contact-category">
+                        <option value="prospect">Prospect</option>
+                        <option value="customer">Customer</option>
+                        <option value="distributor">Distributor</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="contact-dreams">Dreams & Goals</label>
+                    <textarea id="contact-dreams" rows="3" placeholder="What are their dreams and aspirations?"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="contact-notes">Notes</label>
+                    <textarea id="contact-notes" rows="2" placeholder="Additional notes..."></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" data-modal="add-contact-modal">Cancel</button>
+                    <button type="submit" class="btn-primary">Add Contact</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Event Modal -->
+    <div id="add-event-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Schedule Event</h3>
+                <button class="close-btn" data-modal="add-event-modal">×</button>
+            </div>
+            <form id="add-event-form" class="modal-form">
+                <div class="form-group">
+                    <label for="event-title">Event Title *</label>
+                    <input type="text" id="event-title" required>
+                </div>
+                <div class="form-group">
+                    <label for="event-type">Event Type</label>
+                    <select id="event-type">
+                        <option value="call">Phone Call</option>
+                        <option value="meeting">Meeting</option>
+                        <option value="presentation">Presentation</option>
+                        <option value="followup">Follow-up</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="event-date">Date *</label>
+                        <input type="date" id="event-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="event-time">Time *</label>
+                        <input type="time" id="event-time" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="event-contact">Contact</label>
+                    <select id="event-contact">
+                        <option value="">Select a contact...</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="event-notes">Notes</label>
+                    <textarea id="event-notes" rows="3" placeholder="Event details and preparation notes..."></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" data-modal="add-event-modal">Cancel</button>
+                    <button type="submit" class="btn-primary">Schedule Event</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification Panel -->
+    <div id="notification-panel" class="notification-panel">
+        <div class="notification-header">
+            <h3>Notifications</h3>
+            <button class="close-btn" id="close-notifications">×</button>
+        </div>
+        <div class="notification-list">
+            <div class="notification-item unread">
+                <div class="notification-icon">📞</div>
+                <div class="notification-content">
+                    <h4>Follow-up Reminder</h4>
+                    <p>Call John Smith about business opportunity</p>
+                    <span class="notification-time">2 hours ago</span>
+                </div>
+            </div>
+            <div class="notification-item">
+                <div class="notification-icon">📊</div>
+                <div class="notification-content">
+                    <h4>Presentation Scheduled</h4>
+                    <p>Meeting with Sarah Johnson confirmed for tomorrow</p>
+                    <span class="notification-time">5 hours ago</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+</body>
+</html>
+
